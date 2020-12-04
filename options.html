@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DeepLopener PRO Options Page</title>
+<meta http-equiv="content-type" charset="utf-8">
+</head>
+
+<body>
+  　<p>Target language:</p>
+    <select id="target">
+      <option value="EN-US">English(American)</option>
+      <option value="EN-GB">English(British)</option>
+      <option value="JA">日本語</option>
+      <option value="DE">German</option>
+      <option value="FR">French</option>
+      <option value="ES">Spanish</option>
+      <option value="PT-PT">Portuguese</option>
+      <option value="PT-BR">Portuguese(Brazilian)</option>
+      <option value="IT">Italian</option>
+      <option value="NL">Dutch</option>
+      <option value="PL">Polish</option>
+      <option value="RU">Russian</option>
+      <option value="ZH">Chinese</option>
+    </select>
+    <p class="icon"></p>
+      <select id="iconflag">
+      <option value="Enable">Enable</option>
+      <option value="Disable">Disable</option>
+    </select>
+    <p class="hover">HoverText:(When "Enable", the original text is displayed above translation (and vice versa) on text-oriented replacement mode.)</p>
+      <select id="hoverflag">
+        <option value="Enable">Enable</option>
+        <option value="Disable">Disable</option>
+      </select>
+    </p>
+    <p>DeepL PRO API_KEY:
+    <input type="password" id="deeplpro_apikey"><button id="apitest">Test</button>
+    </p>
+    <div id="apitestm"></div>
+      <button id="save">Save</button>
+    
+    <div id="incogm"></div>
+    <div id="message" style="text-align: center;"></div>
+  <script src="options.js"></script>
+</body>
+</html>
