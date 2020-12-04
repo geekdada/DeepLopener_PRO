@@ -2,7 +2,7 @@
 
 You can launch DeepL through this Google chrome extension and replace the texts that you want to translate with translation results keepking the original style.  
 On pdf, this extension displays a frame showing translated sentences.  
-**This is a real page translation GoogleChrome extension that uses DeepL PRO!**  
+**This is a whole page translation GoogleChrome extension that uses DeepL PRO!**  
   
 
 # Install  
