@@ -2,15 +2,22 @@ var cmid;
 var windowid;
 let os = window.navigator.platform;
 chrome.runtime.onInstalled.addListener(function (details) {
-  var res = confirm("Please reload all tabs to adapt DeepLopener PRO.");
-  if (res == true) {
-    chrome.tabs.query({}, function (tabs) {
-      for (let i = 1; i < tabs.length; i++) chrome.tabs.reload(tabs[i].id);
-    });
-  } else {
+  if (details.reason == "install") {
     alert(
-      'Before using this extension, please reload the tab or may occur "Uncaught Error: Extension context invalidated.".'
+      'Thank you for installing DeepLopener PRO!\nBefore using this extension, input "DeepL PRO API_KEY" on options page.'
     );
+    chrome.runtime.openOptionsPage();
+  } else if (details.reason == "update") {
+    var res = confirm("Please reload all tabs to adapt DeepLopener PRO.");
+    if (res == true) {
+      chrome.tabs.query({}, function (tabs) {
+        for (let i = 1; i < tabs.length; i++) chrome.tabs.reload(tabs[i].id);
+      });
+    } else {
+      alert(
+        'Before using this extension, please reload the tab or may occur "Uncaught Error: Extension context invalidated.".'
+      );
+    }
   }
 });
 cmid = chrome.contextMenus.create({
