@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "DeepLopener PRO",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "permissions": ["tabs","storage", "contextMenus"],
   "description": "Unofficial DeepL PRO chrome extension",
   "icons": { "128": "icon128.png" },
@@ -23,11 +23,6 @@
       "js": ["jquery-3.5.1.min.js", "jquery-ui.js", "contents.js"],
       "css": ["style.css", "jquery-ui.css"],
       "run_at": "document_start"
-    },
-    {
-      "matches": ["https://www.deepl.com/*"],
-      "js": ["deeplonly.js"],
-      "run_at": "document_end"
     }
   ]
 }

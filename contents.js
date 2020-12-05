@@ -392,7 +392,58 @@ function api_xml_translation(target_html) {
           );
         });
       } else {
-        alert("Error : " + res.status);
+        switch (res.status) {
+          case 400:
+            alert(
+              "Error : " +
+                res.status +
+                "\nBad request. Please check error message and your parameters."
+            );
+            break;
+          case 403:
+            alert(
+              "Error : " +
+                res.status +
+                "\nAuthorization failed. Please supply a valid auth_key parameter."
+            );
+            chrome.runtime.openOptionsPage();
+            break;
+          case 404:
+            alert(
+              "Error : " +
+                res.status +
+                "\nThe requested resource could not be found."
+            );
+            break;
+          case 413:
+            alert(
+              "Error : " + res.status + "\nThe request size exceeds the limit."
+            );
+            break;
+          case 429:
+            alert(
+              "Error : " +
+                res.status +
+                "\nToo many requests. Please wait and resend your request."
+            );
+            break;
+          case 456:
+            alert(
+              "Error : " +
+                res.status +
+                "\nQuota exceeded. The character limit has been reached."
+            );
+            break;
+          case 503:
+            alert(
+              "Error : " +
+                res.status +
+                "\nResource currently unavailable. Try again later."
+            );
+            break;
+          default:
+            alert("Error : " + res.status);
+        }
       }
     });
   });

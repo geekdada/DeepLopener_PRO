@@ -87,8 +87,53 @@ function api_test() {
             });
           } else {
             document.querySelector("#apitestm").style.color = "red";
-            document.querySelector("#apitestm").innerText =
-              "Authentication failed : " + res.status;
+            switch (res.status) {
+              case 400:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nBad request. Please check error message and your parameters.";
+                break;
+              case 403:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nAuthorization failed. Please supply a valid auth_key parameter.";
+                break;
+              case 404:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nThe requested resource could not be found.";
+                break;
+              case 413:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nThe request size exceeds the limit.";
+                break;
+              case 429:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nToo many requests. Please wait and resend your request.";
+                break;
+              case 456:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nQuota exceeded. The character limit has been reached.";
+                break;
+              case 503:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " +
+                  res.status +
+                  "\nResource currently unavailable. Try again later.";
+                break;
+              default:
+                document.querySelector("#apitestm").innerText =
+                  "Error : " + res.status;
+            }
           }
         });
       });

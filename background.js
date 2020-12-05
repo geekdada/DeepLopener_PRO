@@ -2,7 +2,7 @@ var cmid;
 var windowid;
 let os = window.navigator.platform;
 chrome.runtime.onInstalled.addListener(function (details) {
-  var res = confirm("Please reload all tabs to adapt DeepLopener.");
+  var res = confirm("Please reload all tabs to adapt DeepLopener PRO.");
   if (res == true) {
     chrome.tabs.query({}, function (tabs) {
       for (let i = 1; i < tabs.length; i++) chrome.tabs.reload(tabs[i].id);
@@ -92,7 +92,58 @@ function api_word_translation(sentences, oldtabid, ispdf, selid, pup) {
           classid++;
         });
       } else {
-        alert("Error : " + res.status);
+        switch (res.status) {
+          case 400:
+            alert(
+              "Error : " +
+                res.status +
+                "\nBad request. Please check error message and your parameters."
+            );
+            break;
+          case 403:
+            alert(
+              "Error : " +
+                res.status +
+                "\nAuthorization failed. Please supply a valid auth_key parameter."
+            );
+            chrome.runtime.openOptionsPage();
+            break;
+          case 404:
+            alert(
+              "Error : " +
+                res.status +
+                "\nThe requested resource could not be found."
+            );
+            break;
+          case 413:
+            alert(
+              "Error : " + res.status + "\nThe request size exceeds the limit."
+            );
+            break;
+          case 429:
+            alert(
+              "Error : " +
+                res.status +
+                "\nToo many requests. Please wait and resend your request."
+            );
+            break;
+          case 456:
+            alert(
+              "Error : " +
+                res.status +
+                "\nQuota exceeded. The character limit has been reached."
+            );
+            break;
+          case 503:
+            alert(
+              "Error : " +
+                res.status +
+                "\nResource currently unavailable. Try again later."
+            );
+            break;
+          default:
+            alert("Error : " + res.status);
+        }
       }
     });
   });
@@ -159,7 +210,7 @@ function pdf_createtabs(selection_text) {
       target = "EN-US";
     }
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var len = selection_text;
+      var len = selection_text.length;
       if (len > 4000) {
         var conf = confirm(
           "Are you sure you want to translate this?\n\nIt costs " +
