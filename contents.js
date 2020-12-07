@@ -1,4 +1,4 @@
-console.log("DeepLopener loaded");
+console.log("DeepLopener PRO loaded");
 let hoverflag = true;
 chrome.storage.sync.get(null, function (items) {
   hoverflag = items.hoverflag;
