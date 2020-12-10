@@ -54,7 +54,6 @@ function transition() {
 var txt = "";
 var selection_text = "";
 var classid = 0;
-///API VERSION!!!///
 function api_word_translation(sentences, oldtabid, ispdf, selid, pup) {
   chrome.storage.sync.get(null, function (items) {
     var target = items.target;
@@ -180,7 +179,7 @@ function createtabs() {
                 var len = item[i].length;
                 if (len > 4000) {
                   var conf = confirm(
-                    "Are you sure you want to translate this?\n\nIt costs " +
+                    "Are you sure you want to translate this?\n\nIt costs about " +
                       len +
                       " characters"
                   );
@@ -220,7 +219,7 @@ function pdf_createtabs(selection_text) {
       var len = selection_text.length;
       if (len > 4000) {
         var conf = confirm(
-          "Are you sure you want to translate this?\n\nIt costs " +
+          "Are you sure you want to translate this?\n\nIt costs about " +
             len +
             " characters"
         );

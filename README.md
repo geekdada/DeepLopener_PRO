@@ -1,23 +1,25 @@
 # DeepLopener_PRO
 
-[日本語解説記事](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO%E3%82%92%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F)  
-[How to use (YouTube) ](https://www.youtube.com/watch?v=Vbkjoz4sz4o)  
+[日本語解説記事](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)  
+[How to use (YouTube) ](https://youtu.be/fdgrNRY4jDs)  
 
 You can launch DeepL through this Google chrome extension and replace the texts that you want to translate with translation results keepking the original style.  
 On pdf, this extension displays a frame showing translated sentences.  
-**This is a whole page translatable GoogleChrome extension that uses DeepL PRO!**  
+**This is a whole page translatable GoogleChrome extension that uses DeepL PRO API!**  
   
+# Install from Chrome Web Store  
+[https://chrome.google.com/webstore/detail/deeplopener-pro/almdndhiblbhbnoaakhgefcpmbaoljde](https://chrome.google.com/webstore/detail/deeplopener-pro/almdndhiblbhbnoaakhgefcpmbaoljde)
 
-# Install  
-- Move chrome://extensions.
+# Install from GitHub 
+- Move `chrome://extensions`.
 - Ensure that the "Developer mode" checkbox in the top right-hand corner is checked.   
 - Download `DeepLopener_PRO.zip` from   https://github.com/T3aHat/DeepLopener_PRO/raw/main/DeepLopener_PRO.zip  
-- Drag-and-drop `DeepLopener_PRO.zip` to chrome://extensions
+- Drag-and-drop `DeepLopener_PRO.zip` to `chrome://extensions`.
   
 # Usage  
   
 **(1)** 【transition mode】  
-Right click on the text you want to translate → Click on `DeepL`.   
+Right click on the text you want to translate → Click on `DeepL:selected_text`.   
 **(2)** 【layout-oriented replacement mode】  
 Click the icon ![icon24.png](https://github.com/T3aHat/DeepLopener_PRO/raw/main/icon24.png) in the right-hand corner and 
 move the cursor and right-click to select the text you want to translate or click to cancel to select.   
@@ -47,11 +49,11 @@ It is recommended to use this mode separately from the layout-oriented replaceme
   
 **(4)【PDF mode】**  
 ![pdfmode.gif](https://github.com/T3aHat/DeepLopener_PRO/blob/main/gif/pdfmode.gif)  
-For sites whose MIME type is `application/pdf` (local PDF files available!), the `transition mode` changes to `PDF mode` and the other three modes are disabled.  
-You can move the translation frame around freely in DnD, and right-clicking on the translation result frame will remove it.  
+For sites whose MIME type is `application/pdf` (local PDF files available!), the `transition mode` changes to `PDF mode` and the other modes are disabled.  
+You can move the translation frame around freely in Drag-and-Drop, and right-clicking on the translation result frame will remove it.  
 
 # Options  
-You can change the language of the original and translated text by changing this setting.  
+You can change the language of the translated text by changing this setting.  
 To change the setting, please right click the icon ![icon24.png](https://github.com/T3aHat/DeepLopener_PRO/raw/main/icon24.png) in the right-hand corner and select `Options`.   
 (Default: Target : `English(American)`)  
 ![open_options.png](https://github.com/T3aHat/DeepLopener_PRO/blob/main/gif/open_options.png)  

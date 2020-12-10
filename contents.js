@@ -341,7 +341,7 @@ if (document.contentType != "application/pdf") {
         len = elm.outerHTML.length;
         if (len > 4000) {
           var conf = confirm(
-            "Are you sure you want to translate this?\n\nIt costs " +
+            "Are you sure you want to translate this?\n\nIt costs about " +
               len +
               " characters"
           );

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "DeepLopener PRO",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "permissions": ["tabs","storage", "contextMenus"],
   "description": "Unofficial DeepL PRO chrome extension",
   "icons": { "128": "icon128.png" },
