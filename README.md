@@ -3,7 +3,7 @@
 [日本語解説記事](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)  
 [How to use (YouTube) ](https://youtu.be/fdgrNRY4jDs)  
 
-You can launch DeepL through this Google chrome extension and replace the texts that you want to translate with translation results keepking the original style.  
+You can launch DeepL (https://www.deepl.com) through this Google chrome extension and replace the texts that you want to translate with translation results keepking the original style.  
 On pdf, this extension displays a frame showing translated sentences.  
 **This is a whole page translatable GoogleChrome extension that uses DeepL PRO API!**  
   
