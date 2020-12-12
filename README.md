@@ -1,7 +1,7 @@
 # DeepLopener_PRO
 
-[日本語解説記事](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)に日本語で詳しくインストール方法や
-使用方法を書いているので[こちら](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)を読んでください．    
+[日本語解説記事](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)に日本語で詳しくインストール方法や使用方法を書いているので[こちら](https://t3ahat.hateblo.jp/entry/2020/12/05/DeepLopener_PRO)を読んでください．    
+[How to install (YouTube) ](https://youtu.be/bD3ATu0IHUs)  
 [How to use (YouTube) ](https://youtu.be/fdgrNRY4jDs)  
 
 You can launch DeepL (https://www.deepl.com) through this Google chrome extension and replace the texts that you want to translate with translation results keepking the original style.  
@@ -75,5 +75,5 @@ When "Enable", the original text is displayed above the translation (and vice ve
 意図しない挙動を起こしても一切責任を取りません．  
 DeepL PROを契約する際にAPI使用額上限を低めに設定することを**強く推奨します．**
 * 本拡張機能は製品版ではありません．また，APIの仕様に変更があっても対応しません．  
-* 本拡張機能のセキュリティ上の問題によりAPIの秘密鍵が第三者にわたる可能性があります． **使用する場合は必ずソースコードを読んで，リスクを考慮したうえですべて自己責任で使用してください．ソースコードの挙動を理解できない場合は使用しないでください．**開発者は一切責任を負いません．
+* 本拡張機能のセキュリティ上の問題によりAPIの秘密鍵が第三者にわたる可能性があります． **使用する場合は必ずソースコードを読んで，リスクを考慮したうえですべて自己責任で使用してください．ソースコードの挙動を理解できない場合は使用しないでください．** 開発者は一切責任を負いません．
 * 開発者はド素人なので，特にAPI鍵の保存方法に関するPullRequestを歓迎します!
