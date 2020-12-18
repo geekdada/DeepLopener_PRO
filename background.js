@@ -1,3 +1,19 @@
+var now = new Date();
+var month = now.getMonth();
+chrome.storage.sync.get(null, function (items) {
+  var oldmonth = items.month;
+  if (typeof oldmonth !== "undefined" && oldmonth == month) {
+    alert(
+      "Please check the usage status to see if there is any suspicious usage history."
+    );
+    chrome.tabs.create({
+      url: "https://www.deepl.com/pro-account.html?page=category_usage",
+    });
+  }
+  chrome.storage.sync.set({
+    month: (month + 1) % 12,
+  });
+});
 var cmid;
 var windowid;
 let os = window.navigator.platform;
@@ -391,7 +407,10 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             chrome.tabs.sendMessage(
               tabs[0].id,
               { message: "got_apikey", api_key: tmp3 },
-              function (res) {}
+              function (res) {
+                if (chrome.runtime.lastError) {
+                }
+              }
             );
           });
         });
