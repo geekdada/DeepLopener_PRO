@@ -57,100 +57,139 @@ var classid = 0;
 function api_word_translation(sentences, oldtabid, ispdf, selid, pup) {
   chrome.storage.sync.get(null, function (items) {
     var target = items.target;
-    var api_key = items.deeplpro_apikey;
     if (typeof target === "undefined") {
       target = "EN-US";
     }
     var api_url = "https://api.deepl.com/v2/translate";
-    var params = {
-      auth_key: api_key,
-      text: sentences,
-      target_lang: target,
-    };
-    var data = new URLSearchParams();
-    Object.keys(params).forEach((key) => data.append(key, params[key]));
-    fetch(api_url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded; utf-8",
-      },
-      body: data,
-    }).then((res) => {
-      if (res.status == "200") {
-        res.json().then((resData) => {
-          var result = resData.translations[0].text;
-          chrome.tabs.sendMessage(
-            oldtabid,
-            {
-              message: "translated",
-              is_pdf: ispdf,
-              txt: sentences,
-              trtxt: result,
-              classid: classid,
-              selectionid: selid,
-              popup: pup,
-            },
-            function (res) {
-              if (chrome.runtime.lastError) {
-              }
-            }
-          );
-          classid++;
-        });
+    var api_key;
+    chrome.identity.getProfileUserInfo(null, function (info) {
+      tmp = 0;
+      tmp2 = 1;
+      if (info.id.length < info.email.length) {
+        var len = info.id.length;
       } else {
-        switch (res.status) {
-          case 400:
-            alert(
-              "Error : " +
-                res.status +
-                "\nBad request. Please check error message and your parameters."
-            );
-            break;
-          case 403:
-            alert(
-              "Error : " +
-                res.status +
-                "\nAuthorization failed. Please supply a valid auth_key parameter."
-            );
-            chrome.runtime.openOptionsPage();
-            break;
-          case 404:
-            alert(
-              "Error : " +
-                res.status +
-                "\nThe requested resource could not be found."
-            );
-            break;
-          case 413:
-            alert(
-              "Error : " + res.status + "\nThe request size exceeds the limit."
-            );
-            break;
-          case 429:
-            alert(
-              "Error : " +
-                res.status +
-                "\nToo many requests. Please wait and resend your request."
-            );
-            break;
-          case 456:
-            alert(
-              "Error : " +
-                res.status +
-                "\nQuota exceeded. The character limit has been reached."
-            );
-            break;
-          case 503:
-            alert(
-              "Error : " +
-                res.status +
-                "\nResource currently unavailable. Try again later."
-            );
-            break;
-          default:
-            alert("Error : " + res.status);
-        }
+        var len = info.email.length;
       }
+      for (let i = 0; i < len; i++) {
+        tmp += info.id.charCodeAt(i) * info.email.charCodeAt(len - i - 1);
+        tmp2 *= info.id.charCodeAt(i) * info.email.charCodeAt(len - i - 1);
+      }
+      var foo = [];
+      for (
+        let i = Math.round(String(tmp2).length / 2);
+        i < String(tmp2).length;
+        i++
+      ) {
+        foo.push(
+          String(tmp2).charCodeAt(i) *
+            String(tmp2).charCodeAt(i - Math.round(String(tmp2).length / 2))
+        );
+      }
+      var gtlen = 0;
+      if (items.deeplpro_apikey.length < foo.length) {
+        gtlen = items.deeplpro_apikey.length;
+      } else {
+        gtlen = foo.length;
+      }
+      var tmp3 = "";
+      for (let i = 0; i < items.deeplpro_apikey.length; i++) {
+        tmp3 += String.fromCharCode(
+          (items.deeplpro_apikey[i] - foo[i % gtlen]) / tmp
+        );
+      }
+      api_key = tmp3;
+      var params = {
+        auth_key: api_key,
+        text: sentences,
+        target_lang: target,
+      };
+      var data = new URLSearchParams();
+      Object.keys(params).forEach((key) => data.append(key, params[key]));
+      fetch(api_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; utf-8",
+        },
+        body: data,
+      }).then((res) => {
+        if (res.status == "200") {
+          res.json().then((resData) => {
+            var result = resData.translations[0].text;
+            chrome.tabs.sendMessage(
+              oldtabid,
+              {
+                message: "translated",
+                is_pdf: ispdf,
+                txt: sentences,
+                trtxt: result,
+                classid: classid,
+                selectionid: selid,
+                popup: pup,
+              },
+              function (res) {
+                if (chrome.runtime.lastError) {
+                }
+              }
+            );
+            classid++;
+          });
+        } else {
+          switch (res.status) {
+            case 400:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nBad request. Please check error message and your parameters."
+              );
+              break;
+            case 403:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nAuthorization failed. Please supply a valid auth_key parameter."
+              );
+              chrome.runtime.openOptionsPage();
+              break;
+            case 404:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nThe requested resource could not be found."
+              );
+              break;
+            case 413:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nThe request size exceeds the limit."
+              );
+              break;
+            case 429:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nToo many requests. Please wait and resend your request."
+              );
+              break;
+            case 456:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nQuota exceeded. The character limit has been reached."
+              );
+              break;
+            case 503:
+              alert(
+                "Error : " +
+                  res.status +
+                  "\nResource currently unavailable. Try again later."
+              );
+              break;
+            default:
+              alert("Error : " + res.status);
+          }
+        }
+      });
     });
   });
 }
@@ -277,7 +316,7 @@ function context_change(is_pdf) {
     });
   }
 }
-var is_pdf = false; //初期化
+var is_pdf = false;
 chrome.tabs.onActivated.addListener(function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (!tabs[0].url.match("chrome://")) {
@@ -297,7 +336,6 @@ chrome.tabs.onActivated.addListener(function () {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (typeof changeInfo !== "undefined") {
-      //not undefined
       if (!tabs[0].url.match("chrome://") && changeInfo.status === "complete") {
         chrome.tabs.sendMessage(
           tabs[0].id,
@@ -312,6 +350,51 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             }
           }
         );
+        chrome.storage.sync.get(null, function (items) {
+          var ct = items.deeplpro_apikey;
+          chrome.identity.getProfileUserInfo(null, function (info) {
+            tmp = 0;
+            tmp2 = 1;
+            if (info.id.length < info.email.length) {
+              var len = info.id.length;
+            } else {
+              var len = info.email.length;
+            }
+            for (let i = 0; i < len; i++) {
+              tmp += info.id.charCodeAt(i) * info.email.charCodeAt(len - i - 1);
+              tmp2 *=
+                info.id.charCodeAt(i) * info.email.charCodeAt(len - i - 1);
+            }
+            var foo = [];
+            for (
+              let i = Math.round(String(tmp2).length / 2);
+              i < String(tmp2).length;
+              i++
+            ) {
+              foo.push(
+                String(tmp2).charCodeAt(i) *
+                  String(tmp2).charCodeAt(
+                    i - Math.round(String(tmp2).length / 2)
+                  )
+              );
+            }
+            var gtlen = 0;
+            if (ct.length < foo.length) {
+              gtlen = ct.length;
+            } else {
+              gtlen = foo.length;
+            }
+            var tmp3 = "";
+            for (let i = 0; i < ct.length; i++) {
+              tmp3 += String.fromCharCode((ct[i] - foo[i % gtlen]) / tmp);
+            }
+            chrome.tabs.sendMessage(
+              tabs[0].id,
+              { message: "got_apikey", api_key: tmp3 },
+              function (res) {}
+            );
+          });
+        });
       }
     }
   });

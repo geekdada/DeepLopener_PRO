@@ -1,4 +1,12 @@
 console.log("DeepLopener PRO loaded");
+var api_key;
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.message == "got_apikey") {
+    api_key = request.api_key;
+    sendResponse();
+  }
+});
+
 let hoverflag = true;
 chrome.storage.sync.get(null, function (items) {
   hoverflag = items.hoverflag;
@@ -130,7 +138,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     );
     sendResponse(selection);
     if (!request.popup && selection.length < 20) {
-      txtlist[selectionid] = selection; //翻訳対象
+      txtlist[selectionid] = selection;
       tmptxtlist[selectionid] = [];
       tmptranslatedtxtlist[selectionid] = [];
       var trelm = document.createElement("span");
@@ -160,25 +168,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       request.selectionid +
         " Original:\n" +
         request.txt +
-        "\n\nTranslated:\n" +
+        "\n\nTranslation result by DeepL Pro (deepl.com) API :\n" +
         request.trtxt
     );
     if (!request.is_pdf) {
       var selid = request.selectionid;
       if (request.popup) {
-        lay_replace(request.txt, request.trtxt); //レイアウト重視(popup)
+        lay_replace(request.txt, request.trtxt);
       } else {
         tmptxtlist[selid].push(request.txt);
         tmptranslatedtxtlist[selid].push(request.trtxt);
         if (tmptranslatedtxtlist[selid].length == txtlist[selid].length) {
-          //text_orientedで毎回入る
           for (let i = 0; i < txtlist[selid].length; i++) {
-            var j = tmptxtlist[selid].indexOf(txtlist[selid][i]); //i個めの対象がj番目に到着した
+            var j = tmptxtlist[selid].indexOf(txtlist[selid][i]);
             txt_replace(
               txtlist[selid][i],
               tmptranslatedtxtlist[selid][j],
-              num_trans, //翻訳対象ごとに増える
-              selid //selectionのたび増える．
+              num_trans,
+              selid
             );
             num_trans++;
           }
@@ -363,7 +370,6 @@ if (document.contentType != "application/pdf") {
 function api_xml_translation(target_html) {
   chrome.storage.sync.get(null, function (items) {
     var target = items.target;
-    var api_key = items.deeplpro_apikey;
     if (typeof target === "undefined") {
       target = "EN-US";
     }
@@ -406,7 +412,6 @@ function api_xml_translation(target_html) {
                 res.status +
                 "\nAuthorization failed. Please supply a valid auth_key parameter."
             );
-            chrome.runtime.openOptionsPage();
             break;
           case 404:
             alert(
@@ -448,6 +453,7 @@ function api_xml_translation(target_html) {
     });
   });
 }
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message == "get_body_length") {
     sendResponse(document.body.innerHTML.length);
