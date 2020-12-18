@@ -115,6 +115,7 @@ function restore_options() {
         document.querySelector("#iconflag").value = items.iconflag;
         document.querySelector("#hoverflag").value = items.hoverflag;
         document.querySelector("#deeplpro_apikey").value = tmp3;
+        save_options();
       });
     }
   );
