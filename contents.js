@@ -345,7 +345,7 @@ if (document.contentType != "application/pdf") {
         rng.selectNode(elm);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(rng);
-        len = elm.outerHTML.length;
+        len = elm.innerHTML.length;
         if (len > 4000) {
           var conf = confirm(
             "Are you sure you want to translate this?\n\nIt costs about " +
@@ -368,7 +368,7 @@ if (document.contentType != "application/pdf") {
 }
 
 function api_xml_translation(elm) {
-  var target_html = elm.outerHTML;
+  var target_html = elm.innerHTML;
   chrome.storage.sync.get(null, function (items) {
     var target = items.target;
     if (typeof target === "undefined") {
@@ -393,7 +393,7 @@ function api_xml_translation(elm) {
     }).then((res) => {
       if (res.status == "200") {
         res.json().then((resData) => {
-          elm.outerHTML = resData.translations[0].text;
+          elm.innerHTML = resData.translations[0].text;
         });
       } else {
         switch (res.status) {
