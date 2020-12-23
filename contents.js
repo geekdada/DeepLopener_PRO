@@ -353,10 +353,10 @@ if (document.contentType != "application/pdf") {
               " characters"
           );
           if (conf == true) {
-            api_xml_translation(elm.outerHTML);
+            api_xml_translation(elm);
           }
         } else {
-          api_xml_translation(elm.outerHTML);
+          api_xml_translation(elm);
         }
 
         $(document).off("mousemove");
@@ -367,7 +367,8 @@ if (document.contentType != "application/pdf") {
   });
 }
 
-function api_xml_translation(target_html) {
+function api_xml_translation(elm) {
+  var target_html = elm.outerHTML;
   chrome.storage.sync.get(null, function (items) {
     var target = items.target;
     if (typeof target === "undefined") {
@@ -392,62 +393,61 @@ function api_xml_translation(target_html) {
     }).then((res) => {
       if (res.status == "200") {
         res.json().then((resData) => {
-          document.body.innerHTML = document.body.innerHTML.replace(
-            target_html,
-            resData.translations[0].text
-          );
+          elm.outerHTML = resData.translations[0].text;
         });
       } else {
         switch (res.status) {
           case 400:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nBad request. Please check error message and your parameters."
             );
             break;
           case 403:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nAuthorization failed. Please supply a valid auth_key parameter."
             );
             break;
           case 404:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nThe requested resource could not be found."
             );
             break;
           case 413:
             alert(
-              "Error : " + res.status + "\nThe request size exceeds the limit."
+              "DeepLopener PRO Error : " +
+                res.status +
+                "\nThe request size exceeds the limit."
             );
             break;
           case 429:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nToo many requests. Please wait and resend your request."
             );
             break;
           case 456:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nQuota exceeded. The character limit has been reached."
             );
             break;
           case 503:
             alert(
-              "Error : " +
+              "DeepLopener PRO Error : " +
                 res.status +
                 "\nResource currently unavailable. Try again later."
             );
             break;
           default:
-            alert("Error : " + res.status);
+            alert("DeepLopener PRO Error : " + res.status);
         }
       }
     });
@@ -463,6 +463,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message == "page_translate") {
     $(document).off("mousemove");
     $(document).off("contextmenu");
-    api_xml_translation(document.body.innerHTML);
+    api_xml_translation(document.body);
   }
 });
