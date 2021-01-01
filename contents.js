@@ -387,7 +387,7 @@ function api_xml_translation(elm) {
     fetch(api_url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; utf-8',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
       },
       body: data,
     }).then((res) => {
