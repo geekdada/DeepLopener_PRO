@@ -13,7 +13,7 @@ On pdf, this extension displays a frame showing translated sentences.
 - Ensure that the "Developer mode" checkbox in the top right-hand corner is checked.   
 - Download `DeepLopener_PRO.zip` from  
   
-https://github.com/T3aHat/DeepLopener_PRO/raw/main/DeepLopener_PRO.zip  
+https://github.com/geekdada/DeepLopener_PRO/raw/main/DeepLopener_PRO.zip
   
 - Drag-and-drop `DeepLopener_PRO.zip` to `chrome://extensions`.
   
