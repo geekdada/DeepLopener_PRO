@@ -76,7 +76,7 @@ function api_word_translation(sentences, oldtabid, ispdf, selid, pup) {
     if (typeof target === "undefined") {
       target = "EN-US";
     }
-    var api_url = "https://api.deepl.com/v2/translate";
+    var api_url = "https://a-translator-api.nerdynerd.org/v2/translate";
     var api_key;
     chrome.identity.getProfileUserInfo(null, function (info) {
       tmp = 0;
